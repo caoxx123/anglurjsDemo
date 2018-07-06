@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<script type="text/javascript" src="js/angular.js"></script>
+    <link rel="stylesheet" href="lib/bootstrap.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css">
+</head>
+<body ng-controller="myController">
+    姓名查询条件:<input ng-model="searchName" ng-change="search()"/>    
+    <button ng-click="add()">添加用户</button>
+    <table border="1" style="width:100%">
+    <tr>
+         <th>姓名</th>
+         <th ng-click="title='age';desc=!desc">年龄</th>
+         <th>职位</th>
+         <th>操作</th>
+     </tr>
+     <tr ng-repeat="u in users|orderBy:title:desc">
+         <td>{{u.name}}</td>
+         <td>{{u.age}}</td>
+         <td>{{u.job}}</td>
+         <td><span ng-click="delete($index)">删除</span></td>
+     </tr>
+    </table>
+
+    <div ng-show="isshow">
+        <div>姓名:<input ng-model="name"></div>
+        <div>年龄:<input ng-model="age"></div>
+        <div>职位:<input ng-model="job"></div>
+        <div><button ng-click="save()">保存</button></div>
+    </div>
+    
+    <textarea ng-bind="oldUsers"></textarea>
+
+    <script type="text/javascript">
+    angular.module("myApp",[])
+    .controller("myController",function($scope,$filter) {
+        $scope.users = [{
+            name:"小二",
+            age:"20",
+            job:"员工"
+        },{
+            name:"小张",
+            age:"21",
+            job:"经理"
+        },{
+            name:"小七",
+            age:"35",
+            job:"懂事长"
+        },{
+            name:"李四",
+            age:"25",
+            job:"员工"
+        }];
+        //复制一份
+        $scope.oldUsers = angular.copy($scope.users);
+        //删除
+        $scope.delete = function(i) {
+            $scope.users.splice(i,1);
+            $scope.oldUsers = angular.copy($scope.users);
+        }
+        //添加用户
+        $scope.add = function() {
+            $scope.isshow = true;
+        }
+        //添加用户
+        $scope.save = function() {
+            //判断年龄是否为数字
+            if(/^\d+$/.test($scope.age)) {
+                $scope.users.push({
+                  name: $scope.name,
+                  age: $scope.age,
+                  job: $scope.job
+                });
+                $scope.isshow = false;            
+                $scope.name = "";
+                $scope.age = "";
+                $scope.job = "";
+                $scope.oldUsers = angular.copy($scope.users);
+            } else {
+                alert("年龄必须是数字");
+            }
+        }
+        //搜索
+        $scope.search = function() {
+            if($scope.searchName==="") {
+                $scope.users = $scope.oldUsers;
+            } else {
+                $scope.users = $filter("filter")($scope.users,{name:$scope.searchName});
+            }
+        }
+    });
+    </script>
+</body>
+</html>

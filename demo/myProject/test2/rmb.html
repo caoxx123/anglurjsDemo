@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="js/angular.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+    <input type="text" ng-model="money">
+    <select ng-model="convert">
+        <option value="1">人民币->美元</option>
+        <option value="2">美元->人民币</option>
+    </select>
+    <div>
+        <span ng-if="convert=='1'">
+            {{money}}人民币 =  {{resule}} 美元
+        </span>
+        <span ng-if="convert=='2'">
+            {{money}}美元 = {{resule}} 人民币
+        </span>
+    </div>
+    <script type="text/javascript">
+        angular.module('myApp', []).controller('myController', ['$scope', function($scope) {
+            $scope.money = 10;
+            // $scope.convert = "1";
+            $scope.compute = function(){
+                if($scope.convert==="1") {
+                    // $scope.resule = Math.round(($scope.money/6.644) * 10000)/10000;
+                    $scope.resule = $scope.money*6.644;
+                } else {
+                    $scope.resule = $scope.money/6.644;
+                }
+            }
+            $scope.$watch('money', function(newValue, oldValue, scope) {
+                $scope.compute(); 
+            });
+        }])
+    </script>
+</body>
+</html>

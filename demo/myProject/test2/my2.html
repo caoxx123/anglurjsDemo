@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/angular.js"></script>
+</head>
+<body ng-app="myApp">
+	<div ng-app="myApp" ng-controller="myCtrl">
+	<p>{{ myHeader}}</p>
+	</div>
+	<script>
+	var app = angular.module('myApp', []);
+	app.controller('myCtrl', function($scope,todoser) {
+		myservice.myFunc("333");
+	});
+	app.service('todoser', [function(){
+		this.myFunc = function (x) {
+			//ajax(获取代办数据)
+        	return x.toString(16);
+    	}
+	}])
+
+	app.service('doneser', [function(){
+		this.myFunc = function (x) {
+			//ajax(获取代办数据)
+        	return x.toString(16);
+    	}
+	}])
+	</script>
+</body> 
+</html>

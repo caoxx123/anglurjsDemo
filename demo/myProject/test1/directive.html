@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="js/angular.min.js" charset="utf-8"></script>
+
+	<title></title>
+</head>
+<body>
+	<div ng-app="myApp">
+		<div ng-controller="controller1">
+			<span ng-bind="name"></span>			
+		</div>
+		<smartdot-dir></smartdot-dir>
+	</div>
+
+	<script type="text/javascript">
+		var app = angular.module('myApp', []);
+		app.controller('controller1', ['$scope', function(a) {
+			a.name = "3333";
+		}])
+		// app.directive('smartdotDir',function(){
+		// 	return {
+		// 		template:"<h1>我定义的标签</h1>"
+		// 	}
+		// });
+
+		app.directive('smartdotDir', [function(){
+			// Runs during compile
+			return {
+				restrict: 'E',
+				template: '<h1>555555</h1>'
+			};
+		}]);
+	</script>	
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="js/angular.js"></script>
+</head>
+<body ng-app="hd">
+	 <div  ng-controller="ctrl">
+        名称：<input type="text" ng-model="goods.name" />
+        <br />
+        价格：<input type="text" ng-model="goods.price" /> <br />
+        数量：<input type="text" ng-model="goods.num" /> <br />
+        总价：<input type="text"  ng-value="goods.num*goods.price" readonly="readonly"/>
+    
+        <br/>
+        <input ng-model="language1" type="checkbox" ng-true-value="1" ng-false-value="0">英语
+		<input ng-model="language2" type="checkbox" ng-true-value="1" ng-false-value="0">法语
+		<input ng-model="language3" type="checkbox" ng-true-value="1" ng-false-value="0">日语
+		<input ng-model="language4" type="checkbox" ng-true-value="1" ng-false-value="0">俄语
+	    
+	    <div>
+	    	<span>{{ language1 }}</span>
+	    	<span>{{ language2 }}</span>
+	    	<span>{{ language3 }}</span>
+	    	<span>{{ language4 }}</span>
+	    </div>    
+    </div>
+
+    <script type="text/javascript">
+    var m = angular.module('hd',[]);
+    m.controller('ctrl',['$scope',function($scope) {
+    	$scope.goods = {"name":"apple","price":20,"num":2};
+    }])
+    </script>
+
+</body>
+</html>
